@@ -4,7 +4,7 @@
 .code16
 
 _start:
-	jmp main_16
+	jmp main16
 	nop
 
 	.ascii "WisLabHW"
@@ -27,7 +27,7 @@ _start:
 	.ascii "MosaicX86FD"
 	.ascii "FAT12   "
 
-main_16:
+main16:
 	mov %cs, %ax
 	mov %ax, %ds
 
@@ -43,17 +43,27 @@ main_16:
 	or $0x01, %al
 	mov %eax, %cr0
 
-	ljmp $0x0008, $main_32
+	ljmp $0x0008, $main32
 
 .code32
 
-main_32:
+main32:
 	mov $0x00000010, %eax
 	mov %eax, %es
-	mov $0x04400440, %eax
+
+	mov $0x07200720, %eax
 	mov $0x000B8000, %edi
 	mov $0x000003E8, %ecx
 	rep stosl
+
+1:
+	mov $0x0A, %ah
+	mov $msg, %esi
+	mov $0x000B8000, %edi
+	mov $msg_len, %ecx
+	lodsb
+	stosw
+	loop 1b
 
 	jmp .
 
@@ -65,6 +75,10 @@ gdt:
 gdt_ptr:
 	.word . - gdt - 0x0001
 	.long gdt
+
+msg:
+	.ascii "Mosaic's now in protected mode!"
+	.equ msg_len, . - msg
 
 	.org 0x01FE
 	.word 0xAA55
