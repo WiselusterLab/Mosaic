@@ -27,7 +27,7 @@ _start:
 	.ascii "MosaicX86FD"
 	.ascii "FAT12   "
 
-main16:
+main_16:
 	mov %cs, %ax
 	mov %ax, %ds
 
@@ -43,11 +43,11 @@ main16:
 	or $0x01, %al
 	mov %eax, %cr0
 
-	ljmp $0x0008, $_start32
+	ljmp $0x0008, $main_32
 
 .code32
 
-main32:
+main_32:
 	mov $0x00000010, %eax
 	mov %eax, %es
 	mov $0x04400440, %eax
