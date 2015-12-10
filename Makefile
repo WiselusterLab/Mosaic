@@ -18,7 +18,7 @@ run: ${IMAGE}
 	${QEMU} $^
 
 ${IMAGE}: ${BINARY}
-	${DD} if=/dev/zero of=${IMAGE} bs=1 count=1474560
+	${DD} if=/dev/zero of=${IMAGE} bs=1474560 count=1
 	${DD} if=${BINARY} of=${BINARY} bs=512 count=1 conv=notrunc
 
 ${BINARY}: ${OBJECT}
