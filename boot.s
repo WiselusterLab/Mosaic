@@ -56,11 +56,11 @@ main32:
 	mov $0x000003E8, %ecx
 	rep stosl
 
-1:
 	mov $0x0A, %ah
 	mov $msg, %esi
 	mov $0x000B8000, %edi
 	mov $msg_len, %ecx
+1:
 	lodsb
 	stosw
 	loop 1b
