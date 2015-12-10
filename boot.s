@@ -30,6 +30,11 @@ _start:
 main16:
 	mov %cs, %ax
 	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %fs
+	mov %ax, %gs
+	mov %ax, %ss
+	mov $_start, %sp
 
 	cli
 
@@ -49,16 +54,23 @@ main16:
 
 main32:
 	mov $0x00000010, %eax
+	mov %eax, %ds
 	mov %eax, %es
+	mov %eax, %fs
+	mov %eax, %gs
+	mov $0x00000018, %eax
+	mov %eax, %ss
+	mov $0x00090000, %esp
 
 	mov $0x07200720, %eax
 	mov $0x000B8000, %edi
 	mov $0x000003E8, %ecx
+	push %edi
 	rep stosl
 
 	mov $0x0A, %ah
 	mov $msg, %esi
-	mov $0x000B8000, %edi
+	pop %edi
 	mov $msg_len, %ecx
 1:
 	lodsb
@@ -71,6 +83,7 @@ gdt:
 	.quad 0x0000000000000000
 	.quad 0x00CF9A000000FFFF
 	.quad 0x00CF92000000FFFF
+	.quad 0x00CF93000000FFFF
 
 gdt_ptr:
 	.word . - gdt - 0x0001
