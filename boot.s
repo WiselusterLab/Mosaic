@@ -58,7 +58,6 @@ main32:
 	mov %eax, %es
 	mov %eax, %fs
 	mov %eax, %gs
-	mov $0x00000018, %eax
 	mov %eax, %ss
 	mov $0x00090000, %esp
 
@@ -83,7 +82,6 @@ gdt:
 	.quad 0x0000000000000000
 	.quad 0x00CF9A000000FFFF
 	.quad 0x00CF92000000FFFF
-	.quad 0x00CF93000000FFFF
 
 gdt_ptr:
 	.word . - gdt - 0x0001
