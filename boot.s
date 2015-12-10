@@ -4,7 +4,7 @@
 .code16
 
 _start:
-	jmp main16
+	jmp main_16
 	nop
 
 	.ascii "WisLabHW"
