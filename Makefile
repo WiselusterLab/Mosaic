@@ -1,5 +1,5 @@
 AS = as
-ASFLAGS = 
+ASFLAGS =
 BINARY = boot.bin
 DD = dd
 IMAGE = boot.img
