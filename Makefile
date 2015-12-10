@@ -11,7 +11,7 @@ SOURCE = boot.s
 
 .PHONY: all clean run
 
-all: 
+all: ${IMAGE}
 	
 
 run: ${IMAGE}
