@@ -45,7 +45,7 @@ main16:
 	out %al, $0x92
 
 	mov %cr0, %eax
-	or $0x01, %al
+	or $0x00000001, %eax
 	mov %eax, %cr0
 
 	ljmp $0x0008, $main32
@@ -59,7 +59,7 @@ main32:
 	mov %eax, %fs
 	mov %eax, %gs
 	mov %eax, %ss
-	mov $0x00090000, %esp
+	mov $0x000A0000, %esp
 
 	mov $0x07200720, %eax
 	mov $0x000B8000, %edi
