@@ -30,4 +30,4 @@ ${BINARY}: ${OBJECT}
 	${LD} ${LDFLAGS} ${^} -o ${@}
 
 ${OBJECT}: ${SOURCE}
-	${AS} ${ASFLAGS} $^ -o $@
+	${AS} ${ASFLAGS} ${^} -o ${@}
