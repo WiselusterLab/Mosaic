@@ -76,7 +76,7 @@ main32:
 	stosw
 	loop 1b
 
-	jmp .
+	hlt
 
 gdt:
 	.quad 0x0000000000000000
