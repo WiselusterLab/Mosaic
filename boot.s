@@ -45,7 +45,7 @@ main16:
 	out %al, $0x92
 
 	mov %cr0, %eax
-	or $0x00000001, %eax
+	or $0x01, %al
 	mov %eax, %cr0
 
 	ljmp $0x0008, $main32
@@ -70,7 +70,7 @@ main32:
 	mov $0x0A, %ah
 	mov $msg, %esi
 	pop %edi
-	mov $msg_len, %ecx
+	mov $len, %ecx
 1:
 	lodsb
 	stosw
@@ -89,7 +89,7 @@ gdt_ptr:
 
 msg:
 	.ascii "Mosaic's now in protected mode!"
-	.equ msg_len, . - msg
+	.equ len, . - msg
 
 	.org 0x01FE
 	.word 0xAA55
