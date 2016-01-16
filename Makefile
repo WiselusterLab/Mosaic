@@ -1,9 +1,10 @@
-AS = as
+AS = ${CROSS_COMPILE}as
 ASFLAGS = 
 BINARY = boot.bin
+CROSS_COMPILE = 
 DD = dd
 IMAGE = boot.img
-LD = ld
+LD = ${CROSS_COMPILE}ld
 LDFLAGS = -Ttext=0x7C00 --oformat=binary
 OBJECT = boot.o
 QEMU = qemu-system-x86_64
