@@ -1,34 +1,37 @@
 AS = ${CROSS_COMPILE}as
-ASFLAGS = 
+AS_FLAGS = ${ASFLAGS}
 BINARY = boot.bin
 CROSS_COMPILE = 
 DD = dd
+DD_FLAGS = 
 IMAGE = boot.img
 LD = ${CROSS_COMPILE}ld
-LDFLAGS = -Ttext=0x7C00 --oformat=binary
+LD_FLAGS = -Ttext=0x7C00 --oformat=binary ${LDFLAGS}
 OBJECT = boot.o
-QEMU = qemu-system-x86_64
 RM = rm
-RMFLAGS = -rf
+RM_FLAGS = -rf
+QEMU = qemu-system-i386
+QEMU_FLAGS = 
 SOURCE = boot.s
+TARGET = ${IMAGE}
 
-.PHONY: all clean run
+.PHONY: all clean install
 
-all: ${IMAGE}
+all: ${TARGET}
 	
 
 clean: 
-	${RM} ${RMFLAGS} ${IMAGE} ${BINARY} ${OBJECT}
+	${RM} ${RM_FLAGS} ${BINARY} ${IMAGE} ${OBJECT}
 
-run: ${IMAGE}
-	${QEMU} ${^}
-
-${IMAGE}: ${BINARY}
-	${DD} if=/dev/zero of=${@} bs=1474560 count=1
-	${DD} if=${^} of=${@} bs=512 count=1 conv=notrunc
+run: ${TARGET}
+	${QEMU} ${QEMU_FLAGS} ${^}
 
 ${BINARY}: ${OBJECT}
-	${LD} ${LDFLAGS} ${^} -o ${@}
+	${LD} ${LD_FLAGS} ${^} -o ${@}
+
+${IMAGE}: ${BINARY}
+	${DD} ${DD_FLAGS} if=/dev/zero of=${@} bs=1474560 count=1
+	${DD} ${DD_FLAGS} if=${^} of=${@} bs=512 count=1 conv=notrunc
 
 ${OBJECT}: ${SOURCE}
-	${AS} ${ASFLAGS} ${^} -o ${@}
+	${AS} ${AS_FLAGS} ${^} -o ${@}
